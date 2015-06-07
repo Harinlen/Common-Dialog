@@ -23,8 +23,13 @@ INCLUDEPATH += sdk
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    sdk/knfontdialog.cpp
+    sdk/knfontdialog.cpp \
+    sdk/knsearchbox.cpp
 
 HEADERS += \
     mainwindow.h \
-    sdk/knfontdialog.h
+    sdk/knfontdialog.h \
+    sdk/knsearchbox.h
+
+RESOURCES += \
+    sdk/CommonDialog.qrc

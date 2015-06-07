@@ -16,18 +16,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "knfontdialog.h"
+#ifndef KNSEARCHBOX_H
+#define KNSEARCHBOX_H
 
-#include "mainwindow.h"
+#include <QLineEdit>
 
-#include <QDebug>
-
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+class KNSearchBox : public QLineEdit
 {
-    QFont testFont=font();
-    testFont.setFamily("Monaco");
-    qDebug()<<KNFontDialog::getFont(this,
-                                    QString(),
-                                    testFont);
-}
+    Q_OBJECT
+public:
+    explicit KNSearchBox(QWidget *parent = 0);
+
+signals:
+
+public slots:
+
+private:
+};
+
+#endif // KNSEARCHBOX_H

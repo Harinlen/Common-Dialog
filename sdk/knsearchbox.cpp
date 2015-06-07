@@ -15,19 +15,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
+#include <QLabel>
 
-#include "knfontdialog.h"
+#include "knsearchbox.h"
 
-#include "mainwindow.h"
-
-#include <QDebug>
-
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+KNSearchBox::KNSearchBox(QWidget *parent) :
+    QLineEdit(parent)
 {
-    QFont testFont=font();
-    testFont.setFamily("Monaco");
-    qDebug()<<KNFontDialog::getFont(this,
-                                    QString(),
-                                    testFont);
+    //Generate the search icon.
+    QPixmap searchIcon(":/common-icon/res/SearchIcon.png");
+    QLabel *searchIconWidget=new QLabel(this);
+    searchIconWidget->setPixmap(searchIcon);
+
+    //Change the content margins to insert a image.
+    QMargins editMargins=contentsMargins();
+    editMargins.setLeft(editMargins.left()+searchIcon.width());
+    setTextMargins(editMargins);
 }

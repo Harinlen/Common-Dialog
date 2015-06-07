@@ -25,7 +25,8 @@ class QSlider;
 class QCheckBox;
 class QLineEdit;
 class QListView;
-class QStringListModel;
+class QListWidget;
+class QFontComboBox;
 class QSortFilterProxyModel;
 /*!
  * \brief The KNFontDialog is a dialog to select a font, and tweak the style or
@@ -41,6 +42,33 @@ public:
      */
     explicit KNFontDialog(QWidget *parent = 0);
 
+    /*!
+     * \brief Get the font after configured by user.
+     * \return The user configured font.
+     */
+    QFont resultFont() const;
+
+    /*!
+     * \brief Set the initial font, which is going to be tweak.
+     * \param font The initial font.
+     */
+    void setInitialFont(const QFont &font);
+
+    /*!
+     * \brief Executes a modal font dialog and returns a font.\n
+     * If the user clicks OK, the selected font is returned. If the user clicks
+     * Cancel, the initial font is returned.\n
+     * The dialog is constructed with the given parent and the options specified
+     * in options. \n
+     * \param parent The parent widget.
+     * \param title The font dialog title.
+     * \param initialFont The initial font.
+     * \return
+     */
+    static QFont getFont(QWidget *parent=0,
+                         const QString &title=QString(),
+                         const QFont &initialFont=QFont());
+
 signals:
 
 public slots:
@@ -50,11 +78,10 @@ private slots:
     void onActionCancel(const bool &checked);
 
     void onActionSearchFont(const QString &filterText);
-    void onActionSizeViewCurrentChange(const QModelIndex &current,
-                                       const QModelIndex &previous);
+    void onActionStyleStatusChange(const int &statusIndex);
 
 private:
-    inline void syncFontSize(const qreal &pointSize,
+    inline void syncFontSize(qreal pointSize,
                              bool changeLineEdit=true);
     enum FontStyles
     {
@@ -67,10 +94,11 @@ private:
     };
     QCheckBox *m_fontStyles[FontStylesCount];
 
-    QListView *m_fontFamilyList, *m_sizeListView;
-    QLineEdit *m_sizeEditor;
+    QFontComboBox *m_fontComboBox;
+    QListView *m_fontFamilyList;
+    QListWidget *m_sizeListWidget;
+    QLineEdit *m_sizeEditor, *m_previewer;
     QSortFilterProxyModel *m_fontFamilyFilter;
-    QStringListModel *m_sizeListModel;
     QSlider *m_sizeSlider;
     QFont m_resultFont;
     QStringList m_pointSizeList;
